@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CampusWay - Твой помощник по кампусу{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> {% block head %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="logo">
+                <img src="/static/лого.png" alt="CampusWay Logo">
+                <div class="logo-text">
+                    <h1>CampusWay</h1>
+                    <p>Твой помощник по кампусу</p>
+                </div>
+            </a>
+            <nav>
+                <a href="/search">Поиск аудиторий</a>
+                <a href="/events">События</a>
+                <a href="/clubs">Клубы</a>
+                <a href="/faq">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container-tip">
+            {% block content %}{% endblock %}
+            <!-- Совет дня -->
+            <section class="tip">
+                <h3>💡 Совет дня</h3>
+                <p>Хочешь развить свои навыки? В университете есть кружки по ораторскому мастерству и многому другому!</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Кнопка поддержки -->
+    <div class="support-button">
+        <a href="https://t.me/CampusWay_uunit_bot" target="_blank" title="Поддержка">
+            <img src="static\images\help.png" height="18px" width="18px">
+            <span>Поддержка Telegram</span>
+        </a>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 CampusWay. Сделано с ❤️ для студентов</p>
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

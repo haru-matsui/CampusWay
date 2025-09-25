@@ -1,0 +1,24 @@
+{
+    "auditoriums": [{
+            "number": "6-416",
+            "building": "Корпус 6",
+            "floor": "4 этаж",
+            "description": "..",
+            "photo": "static/images/rooms/6-416.png"
+        },
+        {
+            "number": "6-415",
+            "building": "Корпус 6",
+            "floor": "4 этаж",
+            "description": "..",
+            "photo": "static/images/rooms/6-415.png"
+        },
+        {
+            "number": "6-513",
+            "building": "Корпус 6",
+            "floor": "5 этаж",
+            "description": "..",
+            "photo": ""
+        }
+    ]
+}

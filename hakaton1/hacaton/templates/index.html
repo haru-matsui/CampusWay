@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block title %}CampusWay - Твой помощник по кампусу{% endblock %} {% block content %}
+<!-- в консоль: localStorage.removeItem('campusway_visited') -->
+<section class="welcome" id="welcomeSection">
+    <h2>Добро пожаловать в CampusWay!</h2>
+    <p>Здесь ты можешь легко найти любую аудиторию, узнать о событиях и получить помощь по университету</p>
+</section>
+
+<!-- Быстрый поиск -->
+<section class="quick-search">
+    <h3>Быстрый поиск аудиторий</h3>
+    <form action="/search" method="GET">
+        <input type="text" name="q" placeholder="Введи номер аудитории (например: 101, 205)...">
+        <button type="submit">Найти</button>
+    </form>
+</section>
+
+<!-- Что можно делать -->
+<section class="features">
+    <h3>Что можно делать?</h3>
+    <div class="cards">
+        <a href="/campus_map" class="card-link">
+            <div class="card">
+                <h4>Карта кампуса</h4>
+                <p>Интерактивная карта всех корпусов и этажей<br><b>Смотреть →</b></p>
+            </div>
+        </a>
+        <a href="/events" class="card-link">
+            <div class="card">
+                <h4>События</h4>
+                <p>Узнать о предстоящих мероприятиях<br><b>Смотреть →</b></p>
+            </div>
+        </a>
+
+        <a href="/faq" class="card-link">
+            <div class="card">
+                <h4>Помощь</h4>
+                <p>Получить ответы на частые вопросы<br><b>Узнать →</b></p>
+            </div>
+        </a>
+    </div>
+</section>
+
+
+{% endblock %} {% block scripts %} {% endblock %}

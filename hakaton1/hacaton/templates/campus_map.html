@@ -1,0 +1,166 @@
+{% extends "base.html" %} {% block title %}Карта кампуса - CampusWay{% endblock %} {% block head %}
+<style>
+
+</style>
+{% endblock %} {% block content %}
+
+
+<section class="campus-map-section">
+    <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Интерактивная карта кампуса</h2>
+
+    <div class="campus-map-container">
+        <div class="buildings-panel">
+            <div class="panel-title">Корпуса</div>
+            <button disabled class="building-btn" onclick="selectBuilding(1)">1 корпус</button>
+            <button disabled class="building-btn" onclick="selectBuilding(2)">2 корпус</button>
+            <button disabled class="building-btn" onclick="selectBuilding(3)">3 корпус</button>
+            <button disabled class="building-btn" onclick="selectBuilding(4)">4 корпус</button>
+            <button disabled class="building-btn" onclick="selectBuilding(5)">5 корпус</button>
+            <button class="building-btn" onclick="selectBuilding(6)">6 корпус</button>
+            <button disabled class="building-btn" onclick="selectBuilding(7)">7 корпус</button>
+            <button disabled class="building-btn" onclick="selectBuilding(8)">8 корпус</button>
+            <button disabled class="building-btn" onclick="selectBuilding(9)">9 корпус</button>
+        </div>
+
+        <div class="map-display" id="mapDisplay">
+            <div class="no-map">
+                <h3>Выберите корпус и этаж для просмотра карты</h3>
+                <p>Используйте кнопки слева и справа для навигации</p>
+            </div>
+        </div>
+
+        <div class="floors-panel">
+            <div class="panel-title">Этажи</div>
+            <div id="floorsContainer">
+                <p style="color: #666; text-align: center;">Сначала выберите корпус</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block scripts %}
+<script>
+    const campusData = {
+        1: {
+            name: "1 корпус",
+            floors: [1, 2, 3, 4, 5],
+            description: "Главный корпус университета"
+        },
+        2: {
+            name: "2 корпус",
+            floors: [1, 2, 3, 4],
+            description: "Учебный корпус"
+        },
+        3: {
+            name: "3 корпус",
+            floors: [1, 2, 3],
+            description: ""
+        },
+        4: {
+            name: "4 корпус",
+            floors: [1, 2, 3, 4, 5],
+            description: ""
+        },
+        5: {
+            name: "5 корпус",
+            floors: [1, 2, 3],
+            description: ""
+        },
+        6: {
+            name: "6 корпус",
+            floors: [1, 2, 3, 4, 5],
+            description: ""
+        },
+        7: {
+            name: "7 корпус",
+            floors: [1, 2],
+            description: ""
+        },
+        8: {
+            name: "8 корпус",
+            floors: [1, 2, 3],
+            description: ""
+        },
+        9: {
+            name: "9 корпус",
+            floors: [1, 2, 3, 4],
+            description: ""
+        }
+    };
+
+    let currentBuilding = null;
+    let currentFloor = null;
+
+    function selectBuilding(buildingNum) {
+        currentBuilding = buildingNum;
+        currentFloor = null;
+
+
+        document.querySelectorAll('.building-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+
+        generateFloorButtons(buildingNum);
+
+        showMap(null, null);
+    }
+
+    function generateFloorButtons(buildingNum) {
+        const floorsContainer = document.getElementById('floorsContainer');
+        const building = campusData[buildingNum];
+
+        floorsContainer.innerHTML = '';
+
+        building.floors.forEach(floor => {
+            const btn = document.createElement('button');
+            btn.className = 'floor-btn';
+            btn.textContent = `${floor} этаж`;
+            btn.onclick = () => selectFloor(floor);
+            floorsContainer.appendChild(btn);
+        });
+    }
+
+    function selectFloor(floorNum) {
+        currentFloor = floorNum;
+
+        document.querySelectorAll('.floor-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+
+        showMap(currentBuilding, currentFloor);
+    }
+
+    function showMap(building, floor) {
+        const mapDisplay = document.getElementById('mapDisplay');
+
+        if (!building || !floor) {
+            mapDisplay.innerHTML = `
+                <div class="no-map">
+                    <h3>Выберите корпус и этаж для просмотра карты</h3>
+                    <p>Используйте кнопки слева и справа для навигации</p>
+                </div>
+            `;
+            return;
+        }
+
+        const imagePath = `/static/maps/building_${building}_floor_${floor}.png`;
+        const buildingInfo = campusData[building];
+
+        mapDisplay.innerHTML = `
+            <div class="map-info">
+                <h4>${buildingInfo.name} - ${floor} этаж</h4>
+                <p>${buildingInfo.description}</p>
+            </div>
+            <img src="${imagePath}" alt="Карта ${building} корпуса, ${floor} этаж" 
+                 class="map-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="no-map" style="display: none;">
+                <h3>Карта временно недоступна</h3>
+            </div>
+        `;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {});
+</script>
+{% endblock %}
